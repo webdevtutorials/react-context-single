@@ -88,12 +88,12 @@ createRoot(document.getElementById("root")).render(
 import { useContext } from "react";
 import { MyContext } from "./MyContext";
 
-export default function MyConsumer() {
+export default function MyComponent() {
   const data = useContext(MyContext);
 
   return (
     <>
-      <h2>My Consumer</h2>
+      <h2>My Component</h2>
       <p>{data}</p>
     </>
   );
@@ -103,9 +103,9 @@ export default function MyConsumer() {
 ```js
 // src / App.jsx
 ...
-import MyConsumer from "./MyConsumer";
+import MyComponent from "./MyComponent";
 ...
-<MyConsumer />
+<MyComponent />
 ...
 ```
 
