@@ -39,27 +39,28 @@ git branch -m master main
 ```bash
 gh auth status
 gh repo create react-context-stateless --public --source=. --remote=origin --push
+git remote -v
 ```
 
 ## Create context
 
 ```js
-// src / MyContext.js
+// src / DataContext.js
 import { createContext } from "react";
 
-export const MyContext = createContext();
+export const DataContext = createContext();
 ```
 
 ## Create provider and pass the data
 
 ```js
-// src / MyProvider.jsx
-import { MyContext } from "./MyContext";
+// src / DataProvider.jsx
+import { DataContext } from "./DataContext";
 
-export function MyProvider({ children }) {
+export function DataProvider({ children }) {
   const value = "My data";
 
-  return <MyContext.Provider value={value}>{children}</MyContext.Provider>;
+  return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 }
 ```
 
@@ -71,13 +72,13 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
-import { MyProvider } from "./MyProvider";
+import { DataProvider } from "./DataProvider";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <MyProvider>
+    <DataProvider>
       <App />
-    </MyProvider>
+    </DataProvider>
   </StrictMode>,
 );
 ```
@@ -86,10 +87,10 @@ createRoot(document.getElementById("root")).render(
 
 ```js
 import { useContext } from "react";
-import { MyContext } from "./MyContext";
+import { DataContext } from "./DataContext";
 
 export default function MyComponent() {
-  const data = useContext(MyContext);
+  const data = useContext(DataContext);
 
   return (
     <>
@@ -114,36 +115,36 @@ import MyComponent from "./MyComponent";
 - **MyContext.js** is a single returned **OBJECT**. When stored in a variable it becomes a **STABLE REFERENCE**, as opposed to creating a new reference every time by calling a function. As such, it is an **IDENTIFIER** because it refers to one specific object instance.
 
   ```
-  const MyContext = createContext()
+  const DataContext = createContext()
   ```
 
-- It contains **MyContext.Provider** and **MyContext.Consumer** properties, which both point to the same object.
+- It contains **DataContext.Provider** and **DataContext.Consumer** properties, which both point to the same object.
 
 - Consumers get access to the shared data once wrapped in a provider like this:
 
   ```
-  <MyContext.Provider />
+  <DataContext.Provider />
   ```
 
-  and import **useContext** from 'react' and **MyContext** from the object location.
+  and import **useContext** from 'react' and **DataContext** from the object location.
 
 - The providers gets access to the shared data ones it is passed to the value property
   in the provider like this:
 
   ```
   const value = "My data"
-  <MyContext.Provider value={value} />
+  <DataContext.Provider value={value} />
   ```
 
 - The wrapped consumer access the dataExample like this:
 
   ```
-  const value = useContext(MyContext)
+  const value = useContext(DataContext)
   ```
 
   when it or any of it's parents wrapped in a provider.
 
-- To be retrived, the value must be located in the nearest **MyContext.Provider**
+- To be retrived, the value must be located in the nearest **DataContext.Provider**
   If no provider is found, the default value is returned.
 
 ## Quick-start step guide:
@@ -151,23 +152,23 @@ import MyComponent from "./MyComponent";
 1. Create provider-consumer relationship:
 
    ```
-   const MyContext = createContext()
+   const DataContext = createContext()
    ```
 
 2. Wrap consumers in a provider:
 
    ```
-   <MyContext.Provider />
+   <DataContext.Provider />
    ```
 
-3. Pass the dataExample to the "value" property:
+3. Pass the data to the "value" property:
 
    ```
    const value = "My data"
-   <MyContext.Provider value={value} />
+   <DataContext.Provider value={value} />
    ```
 
-4. Retrieve dataExample with useContext hook:
+4. Retrieve data with useContext hook:
    ```
-   const value = useContext(MyContext)
+   const value = useContext(DataContext)
    ```

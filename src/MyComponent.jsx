@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { MyContext } from "./MyContext";
+import { DataContext } from "./DataContext";
 
 export default function MyComponent() {
-  const data = useContext(MyContext);
+  const data = useContext(DataContext);
 
   return (
     <>
